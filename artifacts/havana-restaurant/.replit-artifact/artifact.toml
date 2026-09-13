@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Havana Restaurant"
+description = "A polished Arabic-first restaurant website for Havana with a cinematic brand intro, interactive menu, cart ordering via WhatsApp, branch details, social links, customer reviews, food imagery, and video reels."
+version = "1.0.0"
+id = "artifacts/havana-restaurant"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20163
+
+[services.development]
+run = "pnpm --filter @workspace/havana-restaurant run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/havana-restaurant", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/havana-restaurant/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20163"
+BASE_PATH = "/"
